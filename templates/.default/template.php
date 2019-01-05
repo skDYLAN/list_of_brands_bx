@@ -4,7 +4,7 @@
     <div class="brends__box-alphabet">
         <ul>
             <?foreach ($arResult["SYMBOLS"] as $symbol):?>
-            <li><a href=""><?=$symbol?></a></li>
+            <li><a href="#<?=$symbol?>"><?=$symbol?></a></li>
             <?endforeach;?>
         </ul>
     </div>
@@ -19,7 +19,7 @@
             </tr>
             </thead>
             <?foreach ($arResult["SYMBOLS"] as $symbol):?>
-            <tr>
+            <tr id="<?=$symbol?>">
                 <td><?=$symbol?></td>
                 <?foreach ($arResult["SECTIONS"] as $section):?>
                 <td>
