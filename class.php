@@ -2,33 +2,31 @@
 
 class CBitrixListOfBrands extends CBitrixComponent{
     public function handlerArParams(){
-        $this->arParams['IBLOCK_ID'] = (int)$this->arParams['IBLOCK_ID'];
         $this->arParams['IBLOCK_COUNT'] = (int)$this->arParams['IBLOCK_COUNT'];
         if(!isset($arParams["CACHE_TIME"]))
             $arParams["CACHE_TIME"] = 36000000;
     }
     public function setArResult(){
-        $arFilter = ['IBLOCK_ID' => $this->arParams['IBLOCK_ID'], 'ACTIVE' => 'Y'];
-        $arSelect = ['ID', 'IBLOCK_ID', 'NAME', "PROPERTY_LINK"];
+        $arFilter = ['ACTIVE' => 'Y'];
+        $arSelect = ['ID', 'NAME', "PROPERTY_LINK"];
+        foreach ($this->arParams["IBLOCK_ID"] as $iblockID) {
 
-        foreach ($this->arParams["SECTION_ID"] as $sectionID) {
-            if(!intval($sectionID))
+            if(!intval($iblockID))
                 continue;
 
-            $arFilter["SECTION_ID"] = $sectionID;
-            $r = CIBlockElement::GetList(["sort" => "ASC"], $arFilter, false, false, $arSelect);
+            $arFilter["IBLOCK_ID"] = $iblockID;
+            $r = CIBlockElement::GetList(["name" => "ASC"], $arFilter, false, false, $arSelect);
             while ($res = $r->Fetch()) {
                 $res['LINK'] = !empty($res['PROPERTY_LINK_VALUE']) ? $res['PROPERTY_LINK_VALUE'] : "";
-                $this->arResult["ELEMENTS"][$sectionID][] = $res;
+                $this->arResult["ELEMENTS"][$iblockID][] = $res;
             }
 
-            $db_iblock = CIBlockSection::GetList(array("SORT"=>"ASC"),
+            $db_iblock = CIBlock::GetList(array("SORT"=>"ASC"),
                 [
                     "IBLOCK_ID" => $this->arParams['IBLOCK_ID'],
-                    "ID" => $sectionID
-                ],
-                false)->Fetch();
-            $this->arResult["SECTIONS"][$sectionID] = ["ID" => $sectionID, "NAME" => $db_iblock["NAME"]];
+                    "ID" => $iblockID
+                ])->Fetch();
+            $this->arResult["SECTIONS"][$iblockID] = ["ID" => $iblockID, "NAME" => $db_iblock["NAME"]];
         }
         $elementsGroup = [];
         $this->arResult["SYMBOLS"] = [];
@@ -37,7 +35,7 @@ class CBitrixListOfBrands extends CBitrixComponent{
                 if (array_search($element["NAME"][0], $this->arResult["SYMBOLS"]) === false) {
                     array_push($this->arResult["SYMBOLS"], $element["NAME"][0]);
                 }
-                $elementsGroup[$id][$this->arResult["SYMBOLS"][count($this->arResult["SYMBOLS"])-1]][] = $element;
+                $elementsGroup[$id][$this->arResult["SYMBOLS"][array_search($element["NAME"][0], $this->arResult["SYMBOLS"])]][] = $element;
             }
         }
         asort($this->arResult["SYMBOLS"]);

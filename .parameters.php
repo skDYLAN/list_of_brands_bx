@@ -35,14 +35,6 @@ $arComponentParameters = array(
             "VALUES" => $arIBlocks,
             "ADDITIONAL_VALUES" => "Y",
             "REFRESH" => "Y",
-        ),
-        "SECTION_ID" => array(
-            "PARENT" => "BASE",
-            "NAME" => GetMessage("STLW_LISTOFBRANDS_PARAMS_SECTIONS"),
-            "TYPE" => "LIST",
-            "VALUES" => $arSection,
-            "ADDITIONAL_VALUES" => "Y",
-            "REFRESH" => "Y",
             "MULTIPLE" => "Y"
         ),
         'CACHE_TIME' => array('DEFAULT' => 36000000),
