@@ -22,18 +22,26 @@ class CBitrixListOfBrands extends CBitrixComponent{
                 $this->arResult["ELEMENTS"][$sectionID][] = $res;
             }
 
-            $db_iblock = CIBlockSection::GetList(array("SORT"=>"ASC"),["IBLOCK_ID" => $this->arParams['IBLOCK_ID']], false)->Fetch();
+            $db_iblock = CIBlockSection::GetList(array("SORT"=>"ASC"),
+                [
+                    "IBLOCK_ID" => $this->arParams['IBLOCK_ID'],
+                    "ID" => $sectionID
+                ],
+                false)->Fetch();
             $this->arResult["SECTIONS"][$sectionID] = ["ID" => $sectionID, "NAME" => $db_iblock["NAME"]];
         }
+        $elementsGroup = [];
         $this->arResult["SYMBOLS"] = [];
-        foreach ($this->arResult["ELEMENTS"] as $section) {
+        foreach ($this->arResult["ELEMENTS"] as $id => $section) {
             foreach ($section as $element) {
                 if (array_search($element["NAME"][0], $this->arResult["SYMBOLS"]) === false) {
                     array_push($this->arResult["SYMBOLS"], $element["NAME"][0]);
                 }
+                $elementsGroup[$id][$this->arResult["SYMBOLS"][count($this->arResult["SYMBOLS"])-1]][] = $element;
             }
         }
         asort($this->arResult["SYMBOLS"]);
+        $this->arResult["ELEMENTS"] = $elementsGroup;
     }
 
     function executeComponent() {

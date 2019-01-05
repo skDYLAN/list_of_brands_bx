@@ -1,0 +1,100 @@
+.brends__box{
+    overflow: hidden;
+    padding-top: 50px;
+}
+.brends__box-alphabet{
+    margin-bottom: 20px;
+}
+.brends__box-alphabet ul{
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: -webkit-flex;
+    display: -moz-flex;
+    display: -ms-flex;
+    display: -o-flex;
+    display: flex;
+    -ms-align-items: center;
+    align-items: center;
+    justify-content: flex-start;
+}
+.brends__box-alphabet ul li{
+    margin: 0 15px;
+}
+.brends__box-alphabet ul li a{
+    text-decoration: none;
+    color:#B3B3B3;
+    font-size: 30px;
+}
+.brends__box-table{
+    margin-bottom: 20px;
+}
+.brends__box-table table{
+    border-collapse: collapse;
+    width: 100%;
+}
+.brends__box-table table tr{
+}
+.brends__box-table table tr td{
+    padding: 20px 5px 20px 0;
+    border-bottom: 1px dotted #000;
+}
+.brends__box-table table tr td:first-child,
+.brends__box-table table tr th:first-child{
+    border-bottom-color: transparent;
+    width: 80px;
+    vertical-align: top;
+    font-size: 35px;
+}
+.brends__box-table table tr th{
+    padding: 5px 5px 5px 0;
+    color: #dc143c;
+    text-align: left;
+    border-bottom: 1px dotted #000;
+}
+.brends__box-table table ul{
+    list-style: none;
+}
+.brends__box-table table a{
+    text-decoration: none;
+}
+.brends__box-table table a sup{
+    color: #dc143c;
+}
+
+@media screen and (max-width: 1200px){
+    .brends__box-alphabet ul li{
+        margin: 0 2px;
+    }
+    .brends__box-alphabet ul {
+        justify-content: space-between;
+    }
+}
+@media screen and (max-width: 1024px){
+    .brends__box{
+        padding-top: 0;
+    }
+}
+@media screen and (max-width:768px){
+    .brends__box-table table tr td:first-child, .brends__box-table table tr th:first-child{
+        width: 40px;
+    }
+}
+@media screen and (max-width:500px){
+    .brends__box-alphabet ul li a{
+        font-size: 20px;
+    }
+}
+@media screen and (max-width:400px){
+    .brends__box-alphabet ul li a{
+        font-size: 16px;
+    }
+    .brends__box-table table a{
+        font-size: 12px;
+    }
+    .brends__box-table table tr td:first-child, .brends__box-table table tr th:first-child{
+        font-size: 20px;
+        font-weight: bold;
+        width: 20px;
+    }
+}
